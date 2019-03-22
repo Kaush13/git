@@ -42,8 +42,7 @@ pipeline {
 		}
 		  stage('Pushing the image') {
 		  docker.withRegistry('https://registry.hub.docker.com') {
-		  docker.push("$(env.BUILD_NUMBER)")
-                  docker.push("latest")
+                  docker.push("kaushdoc/jd")
 		}
 		  echo "Trying to push the image to dockerhub"		 
 }
