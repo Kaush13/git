@@ -32,21 +32,14 @@ pipeline {
 		  agent {
 			 docker {
 				 reuseNode false
-				 image 'jenkins'
-				 docker.build("kaushdoc/jd")
+				 docker.build("jenkins/jenkins")
 				}
 			}
 		  steps {
 			 echo "Running the integration Test"
 			}
 		}
-		  stage('Pushing the image') {
-		  steps {
-		           docker.withRegistry('https://registry.hub.docker.com','docker-hub')
-                 	   docker.push("kaushdoc/jd")
-		}
-		  echo "Trying to push the image to dockerhub"		 
-		}
+		  
 }
 }
 }
