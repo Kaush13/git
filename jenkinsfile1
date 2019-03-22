@@ -33,13 +33,19 @@ pipeline {
 			 docker {
 				 reuseNode false
 				 image 'jenkins'
-				 docker.build -p 9090:8080 -p 60000:50000 --name DPJ -v /var/run/docker.sock:/var/run/docker.sock -v jenkins-data:/var/jenkins_home jenkins
+				 docker.build("kaushdoc/jd")
 				}
 			}
 		  steps {
 			 echo "Running the integration Test"
 			}
 		}
+		  stage('Pushing the image') {
+		  docker.withRegistry('https://registry.hub.docker.com') {
+		  docker.push("$(env.BUILD_NUMBER)")
+                  docker.push("latest")
+		}
+		  echo "Trying to push the image to dockerhub"		 
 }
 }
 }
