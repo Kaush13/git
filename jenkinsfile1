@@ -30,8 +30,10 @@ pipeline {
 		}
 		  stage('Integration Test') {
 		  agent {
-			 dockerfile()
-			}
+			 dockerfile {
+			 filename 'dockerfile'
+			 }
+		}
 		  steps {
 			 echo "Running the integration Test"
 			}
