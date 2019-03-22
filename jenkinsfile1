@@ -44,9 +44,10 @@ pipeline {
 			 echo "Running the integration Test"
 			}
 		}
-		  stage('Deploy') {
+		  stage('Build and Deploy') {
 		   steps {
 			  script {
+				  dockerImage = docker.build registry + ":$BUILD_NUMBER"
 				  docker.withRegistry( '', registryCredential ) {
             			  dockerImage.push()
 }
