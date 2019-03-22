@@ -45,6 +45,7 @@ pipeline {
                   docker.push("kaushdoc/jd")
 		}
 		  echo "Trying to push the image to dockerhub"		 
+		}
 }
 }
 }
