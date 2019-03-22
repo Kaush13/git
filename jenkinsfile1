@@ -1,0 +1,47 @@
+pipeline {
+	  agent any
+	  stages {
+		  stage('One') {
+   		  steps {
+                         echo 'Hi,This is Kaushik'
+			}
+		  }
+		  stage('Two') {
+		  steps {
+			 input('Do you want to proceed?')
+			}
+		  }
+		  stage('Three') {
+		  when {
+          		not {
+			      branch "master"
+			    }
+		       }
+		  steps {
+			  echo "Hello"
+			}
+		  }
+		  stage('Four') {
+		  parallel {
+		  stage('Unit Test') {
+		  steps {
+			  echo "Running the unit test"
+			}
+		}
+		  stage('Integration Test') {
+		  agent {
+			 docker {
+				 reuseNode false
+				 image 'jenkins'
+				 docker.build -p 9090:8080 -p 60000:50000 --name DPJ -v /var/run/docker.sock:/var/run/docker.sock -v jenkins-data:/var/jenkins_home jenkins
+				}
+			}
+		  steps {
+			 echo "Running the integration Test"
+			}
+		}
+}
+}
+}
+}
+	 
