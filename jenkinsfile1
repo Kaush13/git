@@ -42,7 +42,7 @@ pipeline {
 		}
 		  stage('Pushing the image') {
 		  steps {
-		           docker.withRegistry('https://registry.hub.docker.com')
+		           docker.withRegistry('https://registry.hub.docker.com','docker-hub')
                  	   docker.push("kaushdoc/jd")
 		}
 		  echo "Trying to push the image to dockerhub"		 
