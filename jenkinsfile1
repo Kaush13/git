@@ -1,4 +1,9 @@
 pipeline {
+	environment {
+    registry = "kaushdoc/docker-test"
+    registryCredential = 'dockerhub'
+    dockerImage = ''
+	}
 	  agent any
 	  stages {
 		  stage('One') {
@@ -38,7 +43,14 @@ pipeline {
 			 echo "Running the integration Test"
 			}
 		}
-		  
+		  stage('Deploy') {
+		   steps {
+			  script {
+				  docker.withRegistry( '', registryCredential ) {
+            			  dockerImage.push()
+}
+}
+}
 }
 }
 }
